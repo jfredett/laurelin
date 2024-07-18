@@ -1,3 +1,42 @@
 # `laurelin`
 
 NixOS Modules for the `minas-tarwon` project.
+
+## Organization
+
+Modules are arranged in directories corresponding to the option chain they specify. For instance, if
+I have a service `foo` that I want to offer, and it's enable option is specified as:
+
+```nix
+
+config.laurelin.services.bar.foo.enable
+
+```
+
+Then it would be located in:
+
+```
+services/
+    bar/
+        foo/
+            default.nix
+
+# OR
+
+services/
+    bar/
+        foo.nix
+```
+
+Generally preferring the former.
+
+Modules should rely on [turnkey](https://github.com/jfredett/turnkey) for secret management.
+
+All modules are prefixed by `laurelin`.
+
+### Services
+
+### Infra
+
+This includes the `dns` infra module, which manages creating dns entries and properly configuring
+the network interfaces to adhere to the networking standard required by `minas-tarwon`.
