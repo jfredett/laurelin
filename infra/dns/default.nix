@@ -70,21 +70,13 @@ with lib;
     ifaces = attrNames config.networking.interfaces;
     hostname = config.networking.hostName;
     cfg = config.laurelin.infra;
-    ns = "10.255.0.2";
     domains = {};
   in {
     # Populate `laurelin.infra.dns`
     laurelin = {
       infra = {
         dns = with dns.lib.combinators; {
-          SOA = {
-            nameServer = "ns.canon";
-            serial = 202407171538;
-            adminEmail = "jfredett@admin.canon";
-          };
-
           subdomains = {
-            ns.A = mkForce [(a ns)];
             ${hostname}.A = [(a cfg.canon)];
           };
         };
