@@ -5,6 +5,7 @@
 
   imports = [
     ./infra
+    ./services
   ];
 
   config = {};
