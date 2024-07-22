@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: with lib; {
   options = {
     laurelin.netboot = {
       enable = lib.mkOption {

@@ -19,7 +19,7 @@
     };
 
     upstreams = mkOption {
-      type = types.listOf types.string;
+      type = types.listOf types.str;
       default = [
         "1.1.1.1"
         "1.4.4.1"
@@ -30,7 +30,7 @@
     };
 
     interface = mkOption {
-      type = nullOr types.string;
+      type = types.nullOr types.str;
       default = null;
       description = ''
         The network interface to bind to. If null, binds on all interfaces.
@@ -39,12 +39,12 @@
   };
 
   config = let
-    cfg = options.laurelin.services.dns;
+    cfg = config.laurelin.services.dns;
     specifiedInterface = cfg.interface != null;
   in mkIf cfg.enable {
 
-    networking.firewall.allowedTCPPorts = mkIf !specifiedInterface [ 53 853 4000 ];
-    networking.firewall.allowedUDPPorts = mkIf !specifiedInterface [ 53 853 4000 ];
+    networking.firewall.allowedTCPPorts = mkIf (!specifiedInterface) [ 53 853 4000 ];
+    networking.firewall.allowedUDPPorts = mkIf (!specifiedInterface) [ 53 853 4000 ];
 
     networking.firewall.${cfg.interface}.allowedTCPPorts = mkIf specifiedInterface [ 53 853 4000 ];
     networking.firewall.${cfg.interface}.allowedUDPPorts = mkIf specifiedInterface [ 53 853 4000 ];
@@ -61,17 +61,17 @@
         upstreams.groups.default = cfg.upstreams;
         upstreams.timeout = "15s";
         customDNS = cfg.dns;
-      };
 
-      conditional.mapping = cfg.domains;
+        conditional.mapping = cfg.domains;
 
-      blocking = {
-        blockType = "zeroIP";
-        denylists.ads = [
-          "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/pro.txt"
-        ];
+        blocking = {
+          blockType = "zeroIP";
+          denylists.ads = [
+            "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/pro.txt"
+          ];
 
-        clientGroupsBlock.default = [ "ads" ];
+          clientGroupsBlock.default = [ "ads" ];
+        };
       };
     };
   };
@@ -102,6 +102,6 @@
 
      ip saddr 192.168.1.0/24 accept comment "Allow all traffic from KANSAS (192.168.1.0/24)"
      ip saddr 10.255.0.0/16  accept comment "Allow all traffic from CONDORCET (10.255.0.0/16)"
-    '';
-  };
-*/
+     '';
+   };
+   */
