@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: {
   options = {
-    services.laurelin.netboot = {
+    laurelin.netboot = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -14,8 +14,8 @@
     };
   };
 
-  config = let 
-    cfg = config.services.laurelin.netboot;
+  config = let
+    cfg = config.laurelin.netboot;
   in mkIf cfg.enable {
     services.pixiecore = {
       enable = true;
