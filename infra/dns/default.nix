@@ -4,7 +4,7 @@ with lib;
   /*
 
   laurelin.infra = {
-    canon = "10.255.1.1";
+    canon = "10.255.1.1"; # maps to archimedes.canon
     domains = {
       "emerald.city" = {
         ip = "172.18.0.5";
@@ -72,7 +72,6 @@ with lib;
     cfg = config.laurelin.infra;
     domains = {};
   in {
-    # Populate `laurelin.infra.dns`
     laurelin = {
       infra = {
         dns = with dns.lib.combinators; {

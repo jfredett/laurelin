@@ -3,14 +3,14 @@
     enable = mkEnableOption "Enable DNS service";
 
     dns = mkOption {
-      type = types.any;
+      type = types.anything;
       description = ''
         The blocky config for the `customDNS` section
       '';
     };
 
     domains = mkOption {
-      type = types.any;
+      type = types.anything;
       default = {};
       description = ''
         A map of domain names to conditionally map internally. This is exactly the content of
@@ -43,11 +43,15 @@
     specifiedInterface = cfg.interface != null;
   in mkIf cfg.enable {
 
-    networking.firewall.allowedTCPPorts = mkIf (!specifiedInterface) [ 53 853 4000 ];
-    networking.firewall.allowedUDPPorts = mkIf (!specifiedInterface) [ 53 853 4000 ];
+    networking.firewall = { 
+      allowedTCPPorts = mkIf (!specifiedInterface) [ 53 853 4000 ];
+      allowedUDPPorts = mkIf (!specifiedInterface) [ 53 853 4000 ];
 
-    networking.firewall.${cfg.interface}.allowedTCPPorts = mkIf specifiedInterface [ 53 853 4000 ];
-    networking.firewall.${cfg.interface}.allowedUDPPorts = mkIf specifiedInterface [ 53 853 4000 ];
+      interfaces.${cfg.interface} = mkIf specifiedInterface {
+        allowedTCPPorts = [ 53 853 4000 ];
+        allowedUDPPorts = [ 53 853 4000 ];
+      };
+    };
     
 
     environment.systemPackages = [
