@@ -1,4 +1,8 @@
 { config, lib, pkgs, ... }: with lib; {
+  imports = [
+    ./netbootable.nix
+  ];
+
   options = {
     laurelin.netboot = {
       enable = lib.mkOption {
