@@ -43,7 +43,11 @@ the network interfaces to adhere to the networking standard required by `minas-t
 
 ## Pronounciation
 
-"Laurelin" is the name of one of the two trees of Valinor in J.R.R. Tolkien's legendarium. It is
-pronounced "lao-REH-lin", the `au` rhymes with `loud`, and the `r` in `REH` is trilled/rolled, I
+"Laurelin" is the name of one of the two trees of Valinor in J.R.R. Tolkien's legendarium. I
+pronounce it "lau-REH-lin", the `au` rhymes with `loud`, and the `r` in `REH` is trilled/rolled, I
 pronounce it with a slightly French 'r'. I put the emphasis on the second syllable, but I don't
-actually know if that's right, it's just been my habit.
+actually know if that's right, it's just been my habit. I justify it by etymology, "Laurelin" is
+from "laurë", which means "gold" in Quenya, and the suffix "-lin" which means "song". Quenya has a
+trilled 'r', so "laurë" would be pronounced "lau-REH", and the suffix "-lin" would be generally not
+be emphasized when pronounced. So, "lau-REH-lin".
+

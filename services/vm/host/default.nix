@@ -1,7 +1,6 @@
-{ config, lib, pkgs, nixvirt, ... }: let
+{ config, lib, pkgs, ... }: let
   cfg = config.laurelin.services.vm-host;
 in {
-
   options.laurelin.services.vm-host = {
     enable = lib.mkEnableOption "Enable VM Hosting on this machine";
 
@@ -24,13 +23,14 @@ in {
     };
   };
 
-  lib.laurelin.vm.mkLinuxVMfromTemplate = opts: domain.writeXML (domain.templates.linux opts);
-  lib.laurelin.vm.loadFromFile = path: { definition = path; active = true; };
-
   config = lib.mkIf cfg.enable {
     # `libvirt` Config
     security.polkit.enable = true;
     security.polkit.debug = true;
+
+    environment.systemPackages = with pkgs; [
+      libvirt
+    ];
 
     virtualisation.libvirtd = {
         enable = true;
@@ -42,9 +42,9 @@ in {
 
     ## NixVirt setup
 
-    virtualisation.libvirt = with nixvirt.lib; {
+    virtualisation.libvirt =  {
       enable = true;
       connections."qemu:///system" = config.laurelin.services.vm-host.loadout;
     };
   };
-};
+}

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}: {
+{ config, lib, pkgs, nixvirt, ...}: {
   options.laurelin = {
 
   };
@@ -8,5 +8,6 @@
     ./services
   ];
 
-  config = {};
+  config = {
+  };
 }

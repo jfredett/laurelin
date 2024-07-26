@@ -1,6 +1,6 @@
 { config, lib, pkgs, modulesPath, ... }: with lib; {
   options = {
-    laurelin = { 
+    laurelin = {
       netbootable = lib.mkOption {
         type = types.bool;
         default = false;

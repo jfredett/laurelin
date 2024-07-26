@@ -1,4 +1,4 @@
-{ config, lib, pkgs, dns, ...}: 
+{ config, lib, pkgs, dns, ...}:
 with lib;
 {
   /*
