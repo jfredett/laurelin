@@ -40,3 +40,10 @@ All modules are prefixed by `laurelin`.
 
 This includes the `dns` infra module, which manages creating dns entries and properly configuring
 the network interfaces to adhere to the networking standard required by `minas-tarwon`.
+
+## Pronounciation
+
+"Laurelin" is the name of one of the two trees of Valinor in J.R.R. Tolkien's legendarium. It is
+pronounced "lao-REH-lin", the `au` rhymes with `loud`, and the `r` in `REH` is trilled/rolled, I
+pronounce it with a slightly French 'r'. I put the emphasis on the second syllable, but I don't
+actually know if that's right, it's just been my habit.
