@@ -56,7 +56,7 @@ with lib;
 let
   cfg = config.laurelin;
 
-  mkNFSMount = let 
+  mkNFSMount = let
     _mkMount = host: {name, host_path, path, options, ...}: {
       type = "nfs4";
       what = "${host}:/${host_path}/${name}";
@@ -154,7 +154,7 @@ in {
                   ++ (if hasSMB then [ pkgs.samba ] else []);
     supportedFilesystems = (if hasNFS then [ "nfs" ] else [])
                         ++ (if hasSMB then [ "smb" ] else []);
-    
+
 
     nfsMounts = attrValues (mapAttrs mkNFSMount cfg.nfs);
     smbMounts = attrValues (mapAttrs mkSMBMount cfg.smb);
