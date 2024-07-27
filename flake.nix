@@ -20,6 +20,12 @@
   outputs = { self, nixpkgs, nixvirt, dns, nur, ... } @ inputs: {
     lib = (import ./lib) inputs; # TODO: Send `system` down to lib? for now I can hardcode
     nixosModules = {
+      netbootable = { ... }: {
+        imports = [
+          ./services/netboot/netbootable.nix
+        ];
+      };
+
       default = { ... }: {
         imports = [
           nixvirt.nixosModules.default

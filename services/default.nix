@@ -6,5 +6,6 @@
     ./network-storage
     ./virtualbox
     ./vm
+    ./window-manager
   ];
 }
