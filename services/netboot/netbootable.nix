@@ -1,6 +1,6 @@
 { config, lib, pkgs, modulesPath, ... }: with lib; {
   options = {
-    laurelin = {
+    laurelin.netboot = {
       netbootable = lib.mkOption {
         type = types.bool;
         default = false;
@@ -29,7 +29,7 @@
     (modulesPath + "/profiles/base.nix")
   ];
 
-  config = mkIf config.laurelin.netbootable {
+  config = mkIf config.laurelin.netboot.netbootable {
     system.build = {
       netboot = let
         build = config.system.build;
