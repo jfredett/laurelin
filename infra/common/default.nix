@@ -2,6 +2,7 @@
   imports = [
     ./sound.nix
     ./standard-packages.nix
+    ./remap-capslock.nix
   ];
 
   config = {
