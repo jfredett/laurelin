@@ -12,7 +12,7 @@
       };
       image_path = lib.mkOption {
         type = lib.types.path;
-        default = "/nix/store/...-nixos-system-.../initrd";
+        default = "/mnt/netboot";
         description = "Path to repository of netboot images, sorted by MAC";
       };
     };
