@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }: with lib; {
+{ config, lib, pkgs, modulesPath, narya, ... }: with lib; {
   options = {
     laurelin.netboot = {
       netbootable = lib.mkOption {
@@ -29,7 +29,29 @@
     (modulesPath + "/profiles/base.nix")
   ];
 
-  config = mkIf config.laurelin.netboot.netbootable {
+  config = let 
+    hostName = config.networking.hostName;
+    hostkeys = narya.infra.host-keys;
+    hostkey = hostkeys.${hostName} or hostkeys.generic;
+  in mkIf config.laurelin.netboot.netbootable {
+
+    services.openssh = {
+      # Turn off all prior-defined hostkeys
+      hostKeys = mkForce [];
+      # Set hostkey to our statically definied key
+      extraConfig = ''
+        HostKey /etc/ssh/hostkey
+      '';
+    };
+
+    environment.etc = {
+      "ssh/hostkey" = {
+        source = hostkey;
+        mode = "0400";
+      };
+    };
+
+
     system.build = {
       netboot = let
         build = config.system.build;
