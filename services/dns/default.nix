@@ -42,7 +42,7 @@ Design is thus:
   config = let
     cfg = config.laurelin.services.dns;
     specifiedInterface = cfg.interface != null;
-    mkMapping = acc: n: acc // { "*.${n}" = "127.0.0.1:5353"; };
+    mkMapping = acc: n: acc // { "${n}" = "127.0.0.1:5353"; };
     squattedDomains = foldl' mkMapping {} (attrNames cfg.zones);
   in mkIf cfg.enable {
 
@@ -60,28 +60,25 @@ Design is thus:
       pkgs.blocky
     ];
 
-    services = let
-      # FIXME: Unstable is broken rn, so this pushes me back to 0.23, which did not have the
-      # updated, better language for this, this is my little hack to make it better (and an easier
-      # fix in the future).
-      denylists = "blackLists";
-    in {
+    services = {
       blocky = {
         enable = true;
 
         settings = {
-          upstreams.groups.default = [
-            "127.0.0.1:5353" 
-            "1.1.1.1"
-            "1.4.4.1"
-          ];
-          upstreams.timeout = "15s";
+          upstreams = {
+            groups.default = [
+              "1.1.1.1"
+              "1.4.4.1"
+            ];
+            strategy = "strict";
+            timeout = "15s";
+          };
 
           conditional.mapping = squattedDomains;
 
           blocking = {
             blockType = "zeroIP";
-            ${denylists}.ads = [
+            denylists.ads = [
               "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/pro.txt"
             ];
 
@@ -107,32 +104,3 @@ Design is thus:
     };
   };
 }
-
-    /*
-# FIXME: This was all in the parent machine's config, but it should be contained in here.
-
-
-  # TODO: Move this somehow into the dns module.
-  laurelin.blocky.settings = {
-    ports = let mkBlockyIPs = port: map (ip: "${ip}:${toString port}") [ "10.255.0.3" ]; in {
-      dns = mkBlockyIPs 53;
-      tls = mkBlockyIPs 853;
-      http = mkBlockyIPs 4000;
-      https = mkBlockyIPs 443;
-    };
-  };
-
-  # TODO: Move blocky ports into the service definition, then pull it from there
-  networking.nftables.enable = true;
-  networking.firewall = let blockyPorts = [ 53 443 853 4000 ]; in {
-    # FIXME: this is probably wrong.
-    enable = false;
-    allowedTCPPorts = blockyPorts;
-    extraInputRules = ''
-     # FIXME: I hate this, I wish it were more nix and less string.
-
-     ip saddr 192.168.1.0/24 accept comment "Allow all traffic from KANSAS (192.168.1.0/24)"
-     ip saddr 10.255.0.0/16  accept comment "Allow all traffic from CONDORCET (10.255.0.0/16)"
-     '';
-   };
-   */
