@@ -20,7 +20,7 @@
       reverse-proxy = {
         domain = "emerald.city";
         services = {
-          dashy = { port = 8080; };
+          dashy = { port = 8081; };
         };
       };
     };
