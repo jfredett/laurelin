@@ -74,6 +74,10 @@ Design is thus:
             timeout = "15s";
           };
 
+          customDNS = {
+            customTTL = "60s";
+          };
+
           conditional.mapping = squattedDomains;
 
           blocking = {
