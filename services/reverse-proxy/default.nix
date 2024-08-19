@@ -20,6 +20,10 @@
           port = mkOption {
             type = int;
           };
+          proxyWebsockets = mkOption {
+            type = bool;
+            default = false;
+          };
         };
       });
       default = { };
@@ -39,7 +43,12 @@
           port = mkOption {
             type = int;
           };
+          proxyWebsockets = mkOption {
+            type = bool;
+            default = false;
+          };
         };
+
 
       };
       default = { };
@@ -64,6 +73,7 @@
             locations."/" = {
               proxyPass = "http://${conf.address}:${toString conf.port}";
               recommendedProxySettings = true;
+              proxyWebsockets = conf.proxyWebsockets;
             };
           };
         };
@@ -73,6 +83,7 @@
             serverName = "${config.networking.fqdn}";
             locations."/" = {
               proxyPass = "http://${cfg.fqdn.address}:${toString cfg.fqdn.port}";
+              proxyWebsockets = cfg.fqdn.proxyWebsockets;
               recommendedProxySettings = true;
             };
           };
