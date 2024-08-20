@@ -5,6 +5,7 @@
     ./docker
     ./netboot
     ./network-storage
+    ./prometheus
     ./promtail
     ./reverse-proxy
     ./virtualbox

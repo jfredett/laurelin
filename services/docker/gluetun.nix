@@ -1,6 +1,14 @@
 { config, lib, pkgs, narya, ... }: with lib; {
   options.laurelin.services.docker.gluetun = {
     enable = mkEnableOption "Enable docker";
+
+    ports = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = ''
+        Portmappings to pass to the container
+      '';
+    };
   };
 
   config = let
@@ -13,15 +21,7 @@
     virtualisation.oci-containers.containers = {
         gluetun = {
           image = "qmcgaw/gluetun";
-          ports = [
-            "8888:8888"
-            "8080:8080"
-            "8081:8081"
-            "6881:6881"
-            "6881:6881/udp"
-            "6882:6882"
-            "6882:6882/udp"
-          ];
+          ports = cfg.gluetun.ports;
           volumes = [ "${cfg.host.volumeRoot}/gluetun:/gluetun:rw" ];
           extraOptions = [
             "--cap-add=NET_ADMIN"

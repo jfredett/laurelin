@@ -66,6 +66,8 @@
       enable = true;
 
       clientMaxBodySize = "25m";
+      # TODO: Only turn this on if the exporter is on?
+      statusPage = true;
 
       virtualHosts = let
         mkService = name: conf: {
