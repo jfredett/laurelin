@@ -3,6 +3,7 @@
     ./_1password
     ./dns
     ./docker
+    ./grafana
     ./netboot
     ./network-storage
     ./prometheus

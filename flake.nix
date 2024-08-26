@@ -17,8 +17,10 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, nixvirt, dns, nur, ... } @ inputs: {
-    lib = (import ./lib) inputs; # TODO: Send `system` down to lib? for now I can hardcode
+  outputs = { self, nixpkgs, nixvirt, dns, nur, ... } @ inputs: let 
+    pkgs = import nixpkgs { inherit inputs; };
+  in {
+    lib = (import ./lib) { inherit nixvirt pkgs; }; # TODO: Send `system` down to lib? for now I can hardcode
     nixosModules = {
       netbootable = { ... }: {
         imports = [

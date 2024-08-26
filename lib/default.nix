@@ -1,4 +1,4 @@
-{ nixvirt, ... }: let
+{ nixvirt, pkgs, ... }: let
 in {
   vm = with nixvirt.lib; {
     inherit pool network volume domain;
@@ -7,4 +7,8 @@ in {
 
   };
   util.fold = { join, start, vals }: builtins.foldl' (acc: v: join acc v) start vals;
+  mkDashboard = { templateName, dashboardName, args }: with builtins; let
+    template = import ../services/grafana/dashboard-templates/${templateName}.nix;
+    dashboardJson = toString (toJSON (template args));
+  in pkgs.writeText "${dashboardName}.json" dashboardJson;
 }
