@@ -24,6 +24,7 @@
       prometheus.exporters = {
         ipmi = {
           enable = true;
+          user = "root";
           openFirewall = true;
           port = cfg.port;
         };
