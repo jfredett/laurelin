@@ -2,6 +2,7 @@
   imports = [
 #    ./domain.nix
 #    ./idrac.nix
+    ./ipmi.nix
     ./nginx.nix
     ./node.nix
 #    ./script.nix

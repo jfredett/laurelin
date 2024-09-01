@@ -9,7 +9,7 @@
     };
     port = mkOption {
       type = int;
-      default = 9092;
+      default = 9099;
     };
     domain = mkOption {
       type = str;

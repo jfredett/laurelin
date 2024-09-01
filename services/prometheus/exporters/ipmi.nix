@@ -1,15 +1,15 @@
 { config, lib, pkgs, ... }: with lib; {
-  options.laurelin.services.prometheus.exporters.script = with types; {
+  options.laurelin.services.prometheus.exporters.ipmi = with types; {
     enable = mkOption {
       type = bool;
-      default = false;
+      default = true;
       description = ''
         Enable the prometheus client
       '';
     };
     port = mkOption {
       type = int;
-      default = 9098;
+      default = 9094;
     };
     domain = mkOption {
       type = str;
@@ -18,12 +18,11 @@
   };
 
   config = let
-    cfg = config.laurelin.services.prometheus.exporters.script;
+    cfg = config.laurelin.services.prometheus.exporters.ipmi;
   in mkIf cfg.enable {
-
     services = {
       prometheus.exporters = {
-        script = {
+        ipmi = {
           enable = true;
           openFirewall = true;
           port = cfg.port;
@@ -32,4 +31,3 @@
     };
   };
 }
-

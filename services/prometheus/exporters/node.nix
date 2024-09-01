@@ -10,7 +10,7 @@
     };
     port = mkOption {
       type = int;
-      default = 9091;
+      default = 9097;
     };
     domain = mkOption {
       type = str;
@@ -30,7 +30,6 @@
         "netdev"
         "netstat"
         "stat"
-        "systemd"
         "time"
         "uname"
         "vmstat"
