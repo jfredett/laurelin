@@ -7,6 +7,14 @@
 
   config = {
     nix = {
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 14d";
+      };
+      optimise = {
+        automatic = true;
+      };
       package = pkgs.nixFlakes;
       settings = {
         experimental-features = [
@@ -36,13 +44,15 @@
     environment.systemPackages = with pkgs; [
       man-pages
       man-pages-posix
+      groff
     ];
+
     documentation = {
       dev.enable = true;
 
       man = {
-        man-db.enable = false;
-        mandoc.enable = true;
+        man-db.enable = true;
+        mandoc.enable = false;
         generateCaches = true;
       };
     };
