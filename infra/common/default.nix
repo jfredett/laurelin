@@ -2,6 +2,7 @@
   imports = [
     ./sound.nix
     ./standard-packages.nix
+    ./hyprland-cachix.nix
     ./remap-capslock.nix
   ];
 
