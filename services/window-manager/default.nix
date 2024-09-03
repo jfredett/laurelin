@@ -3,7 +3,7 @@
     laurelin.services.window-manager = {
       enable = mkEnableOption "Enable the Desktop Environment";
       manager = mkOption {
-        type = types.enum [ "kde" "lxqt" ];
+        type = types.enum [ "kde" "lxqt" "hyprland" ];
         default = "kde";
         description = "The window manager to use";
       };
@@ -13,11 +13,13 @@
   imports = [
     ./kde.nix
     ./lxqt.nix
+    ./hyprland
   ];
 
   config = let
     cfg = config.laurelin.services.window-manager;
-  in mkIf cfg.enable {
+    condition = cfg.enable && cfg.manager != "hyprland";
+  in mkIf condition {
     services.xserver = {
       enable = true;
 
