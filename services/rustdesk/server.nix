@@ -2,6 +2,11 @@
   options = with types; {
     laurelin.services.rustdesk.server = {
       enable = mkEnableOption "Enable the rustdesk server";
+      relayIP = mkOption {
+        type = types.str;
+        default = config.laurelin.infra.canon;
+        description = "relayIP for the rustdesk server";
+      };
     };
   };
 
@@ -12,6 +17,7 @@
     services.rustdesk-server = {
       enable = true;
       openFirewall = true;
+      relayIP = cfg.relayIP;
     };
   };
 }

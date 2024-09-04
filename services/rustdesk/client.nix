@@ -6,7 +6,7 @@
   };
 
   config = let
-    cfg = config.path.to.module;
+    cfg = config.laurelin.services.rustdesk.client;
     condition = cfg.enable;
   in mkIf condition {
     environment.systemPackages = [
