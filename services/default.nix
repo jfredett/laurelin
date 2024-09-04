@@ -9,6 +9,7 @@
     ./prometheus
     ./promtail
     ./reverse-proxy
+    ./rustdesk
     ./virtualbox
     ./vm
     ./window-manager
