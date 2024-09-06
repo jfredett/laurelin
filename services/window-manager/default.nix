@@ -7,6 +7,13 @@
         default = "kde";
         description = "The window manager to use";
       };
+      hyprland = {
+        gpu = mkOption {
+          type = types.enum [ "none" "nvidia" ];
+          default = "none";
+          description = "The GPU configuration to use";
+        };
+      };
     };
   };
 
