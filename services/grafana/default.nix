@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: with lib; {
+{ config, lib, pkgs, narya, ... }: with lib; {
   options.laurelin.services.grafana = with types; {
     enable = mkEnableOption "Enable grafana";
     port = mkOption {
@@ -25,6 +25,8 @@
   };
 
 
+  # TODO: Provision an admin user
+
   config = let
     cfg = config.laurelin.services.grafana;
     dashboard_folder = pkgs.linkFarmFromDrvs "grafana-dashboard" cfg.dashboards;
@@ -32,6 +34,7 @@
     services.grafana = {
         enable = true;
         settings = {
+          admin_password = narya.services.grafana.security.admin_password;
 
           server = {
             domain = "grafana.${cfg.domain}";
