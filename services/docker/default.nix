@@ -2,6 +2,7 @@
   imports = [
     ./dashy.nix
     ./gluetun.nix
+    ./grocy.nix
     ./jellyfin.nix
   ];
 
