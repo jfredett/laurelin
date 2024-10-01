@@ -67,15 +67,20 @@
 
           echo "Copying kernel params from ${config.system.build.toplevel}/kernel-params -> $out/kernel-params"
           ln -s "${config.system.build.toplevel}/kernel-params" $out/kernel-params
+
           echo "Copying init from ${config.system.build.toplevel}/init -> $out/init"
           ln -s "${config.system.build.toplevel}/init" $out/init
 
-          echo "Copying ${build.kernel}/${kernelTarget} -> $out/${kernelTarget}"
-          ln -s ${build.kernel}/${kernelTarget}         $out/${kernelTarget}
+          # I think this is not needed
+          # echo "Copying ${build.kernel}/${kernelTarget} -> $out/${kernelTarget}"
+          # ln -s ${build.kernel}/${kernelTarget}         $out/${kernelTarget}
+
           echo "Copying ${build.netbootRamdisk}/initrd -> $out/initrd"
           ln -s ${build.netbootRamdisk}/initrd          $out/initrd
-          echo "Copying ${build.netbootIpxeScript}/netboot.ipxe -> $out/ipxe"
-          ln -s ${build.netbootIpxeScript}/netboot.ipxe $out/ipxe
+
+          # I think this is not needed
+          # echo "Copying ${build.netbootIpxeScript}/netboot.ipxe -> $out/ipxe"
+          # ln -s ${build.netbootIpxeScript}/netboot.ipxe $out/ipxe
 
           echo "Writing 'init-command: ${build.toplevel}' to $out/init-command"
           echo "${build.toplevel}" > $out/init-command

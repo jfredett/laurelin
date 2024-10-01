@@ -70,8 +70,10 @@
           # in a stream
           pxe_path = File.join(image_path, mac, "latest")
 
+          extra_cmdline = File.read(File.join(pxe_path, "kernel-params")).chomp
+
           init_cmd = File.read(File.join(pxe_path, "init-command")).chomp
-          cmdline = "init=#{init_cmd}/init initrd=initrd nohibernate loglevel=4"
+          cmdline = "init=#{init_cmd}/init initrd=initrd #{extra_cmdline}"
 
           response = {
             "kernel": "file://#{pxe_path}/bzImage",
