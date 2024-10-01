@@ -12,6 +12,7 @@
     ./rustdesk
     ./virtualbox
     ./vm
+    ./wayvnc
     ./window-manager
   ];
 }
