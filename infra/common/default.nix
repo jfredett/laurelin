@@ -2,7 +2,6 @@
   imports = [
     ./sound.nix
     ./standard-packages.nix
-    ./hyprland-cachix.nix
     ./remap-capslock.nix
   ];
 
@@ -16,11 +15,18 @@
       optimise = {
         automatic = true;
       };
-      package = pkgs.nixFlakes;
+      package = pkgs.nixVersions.stable;
       settings = {
         experimental-features = [
           "nix-command"
           "flakes"
+        ];
+        substituters = [
+          "https://nixcommunity.cachix.org"
+          "https://cache.nixos.org"
+        ];
+        trusted-public-keys = [
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
       };
     };
@@ -40,7 +46,9 @@
       LC_TIME = "en_US.UTF-8";
     };
 
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs.config = {
+      allowUnfree = true;
+    };
 
     environment.systemPackages = with pkgs; [
       man-pages

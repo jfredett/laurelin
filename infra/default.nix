@@ -2,5 +2,6 @@
   imports = [
     ./common
     ./dns
+    ./caches
   ];
 }
