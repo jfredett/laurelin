@@ -70,7 +70,12 @@
           # in a stream
           pxe_path = File.join(image_path, mac, "latest")
 
-          extra_cmdline = File.read(File.join(pxe_path, "kernel-params")).chomp
+          kernel_params_path = File.join(pxe_path, "kernel-params")
+          extra_cmdline = if File.exists?(kernel_params_path)
+            File.read(kernel_params_path).chomp
+          else
+            ""
+          end
 
           init_cmd = File.read(File.join(pxe_path, "init-command")).chomp
           cmdline = "init=#{init_cmd}/init initrd=initrd #{extra_cmdline}"
