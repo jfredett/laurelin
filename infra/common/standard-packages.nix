@@ -3,18 +3,19 @@
 
   config = mkIf config.laurelin.infra.standard-packages.enable {
     environment.systemPackages = with pkgs; [
-      neovim
-      python3
-      wget
-      lsof
-      nmap
-      inetutils
-      git
       curl
-      jq
-      yq
-      ripgrep
       dig
+      file
+      git
+      inetutils
+      jq
+      lsof
+      neovim
+      nmap
+      python3
+      ripgrep
+      wget
+      yq
     ];
   };
 }
