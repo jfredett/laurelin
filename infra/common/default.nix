@@ -22,7 +22,7 @@
           "flakes"
         ];
         substituters = [
-          "https://nixcommunity.cachix.org"
+          "https://nix-community.cachix.org"
           "https://cache.nixos.org"
         ];
         trusted-public-keys = [
