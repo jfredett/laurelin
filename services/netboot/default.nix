@@ -39,8 +39,8 @@
       enable = true;
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      script = let 
-        rubyEnv = pkgs.ruby.withPackages (ps: with ps; [ 
+      script = let
+        rubyEnv = pkgs.ruby.withPackages (ps: with ps; [
           pkgs.rubyPackages.sinatra
           pkgs.rubyPackages.puma 
           pkgs.rubyPackages.rack

@@ -29,7 +29,7 @@
     (modulesPath + "/profiles/base.nix")
   ];
 
-  config = let 
+  config = let
     hostName = config.networking.hostName;
     hostkeys = narya.infra.host-keys;
     hostkey = hostkeys.${hostName} or hostkeys.generic;
@@ -55,7 +55,6 @@
     system.build = {
       netboot = let
         build = config.system.build;
-        kernelTarget = pkgs.stdenv.hostPlatform.linux-kernel.target;
       in pkgs.symlinkJoin {
         name = "netboot";
         paths = with config.system.build; [
