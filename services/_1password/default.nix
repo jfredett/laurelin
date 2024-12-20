@@ -20,9 +20,7 @@
     # sure it should be in HM.
     environment.systemPackages = with pkgs; [
       _1password-gui
-      _1password
-      # BUG: This seems to be broken?
-      #git-credential-1password
+      _1password-cli
     ];
 
     programs._1password.enable = cfg.withGUI;
