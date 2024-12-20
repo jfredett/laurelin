@@ -37,7 +37,7 @@
       default = { ... }: {
         imports = [
           nixvirt.nixosModules.default
-          nur.nixosModules.nur
+          nur.modules.nixos.default
 
           ./default.nix
         ];
