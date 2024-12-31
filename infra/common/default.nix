@@ -7,6 +7,7 @@
 
   config = {
     nix = {
+      package = pkgs.lix;
       gc = {
         automatic = true;
         dates = "weekly";
@@ -15,7 +16,6 @@
       optimise = {
         automatic = true;
       };
-      package = pkgs.nixVersions.stable;
       settings = {
         experimental-features = [
           "nix-command"
