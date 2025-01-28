@@ -5,6 +5,7 @@
     ./gluetun.nix
     ./grocy.nix
     ./jellyfin.nix
+    ./registry.nix
   ];
 
   options.laurelin.services.docker = {

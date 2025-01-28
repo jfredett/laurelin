@@ -3,7 +3,7 @@
     enable = mkEnableOption "Enable docker registry";
     listenAddress = mkOption {
       type = types.str;
-      default = "0.0.0.0";
+      default = "localhost";
     };
     port = mkOption {
       type = types.int;
@@ -19,7 +19,7 @@
         reverse-proxy = {
           domain = "emerald.city";
           services = {
-            docker-registry = { port = 15151; };
+            docker-registry = { address = "localhost"; port = cfg.registry.port; ssl = true; };
           };
         };
       };
@@ -29,6 +29,12 @@
 
         enable = true;
         openFirewall = true;
+      };
+
+      virtualisation.docker = {
+        extraOptions = ''
+          --insecure-registry ${cfg.registry.listenAddress}:${toString cfg.registry.port}
+        '';
       };
     };
 }
