@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }: with lib; {
   imports = [
+    ./client.nix
     ./dashy.nix
     ./gluetun.nix
     ./grocy.nix
@@ -30,39 +31,30 @@
   config = let
     cfg = config.laurelin.services.docker;
   in mkIf cfg.host.enable {
-    # TODO: This should be owned by a different docker user, not root.
-    systemd.tmpfiles.rules = [
-      "d /mnt/tmp 0755 root users -"
-      "d ${cfg.host.volumeRoot} 0755 root users -"
-    ];
+      # TODO: This should be owned by a different docker user, not root.
+      systemd.tmpfiles.rules = [
+        "d /mnt/tmp 0755 root users -"
+        "d ${cfg.host.volumeRoot} 0755 root users -"
+      ];
 
-    laurelin = {
-      services.reverse-proxy = {
-        enable = true;
-        domain = cfg.host.domain;
-      };
+      laurelin = {
+        services.reverse-proxy = {
+          enable = true;
+          domain = cfg.host.domain;
+        };
 
-      nfs = {
-        "nancy.canon" = [
-          {
-            name = "docker";
-            path = cfg.host.volumeRoot;
-            host_path = "volume1";
-          }
-        ];
-      };
-    };
 
-    virtualisation = {
-      podman = {
-        enable = true;
-        dockerCompat = true;
-        defaultNetwork.settings.dns_enabled = true;
-      };
+        services.docker.client.enable = true;
 
-      oci-containers = {
-        backend = "podman";
+        nfs = {
+          "nancy.canon" = [
+            {
+              name = "docker";
+              path = cfg.host.volumeRoot;
+              host_path = "volume1";
+            }
+          ];
+        };
       };
     };
-  };
 }
