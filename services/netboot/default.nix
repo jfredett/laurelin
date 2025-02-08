@@ -71,7 +71,7 @@
           pxe_path = File.join(image_path, mac, "latest")
 
           kernel_params_path = File.join(pxe_path, "kernel-params")
-          extra_cmdline = if File.exists?(kernel_params_path)
+          extra_cmdline = if File.exist?(kernel_params_path)
             File.read(kernel_params_path).chomp
           else
             ""
