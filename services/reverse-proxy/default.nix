@@ -78,7 +78,7 @@
       services.nginx = {
         enable = true;
 
-        clientMaxBodySize = "50m";
+        clientMaxBodySize = "500m";
         # TODO: Only turn this on if the exporter is on?
         statusPage = true;
 
