@@ -10,6 +10,7 @@
     ./promtail
     ./reverse-proxy
     ./rustdesk
+    ./steam
     ./virtualbox
     ./vm
     ./wayvnc
