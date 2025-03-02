@@ -16,11 +16,10 @@
 
     nur.url = "github:nix-community/NUR";
 
-    stylix.url = "github:danth/stylix";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
-  outputs = { self, nixpkgs, nixvirt, dns, nur, hyprland, stylix, ... } @ inputs: let
+  outputs = { self, nixpkgs, nixvirt, dns, nur, hyprland, ... } @ inputs: let
     pkgs = import nixpkgs { inherit inputs; };
   in {
     # TODO: I think I want to proxy inputs here? So that, e.g., telperion and glamdring can grab the
