@@ -33,5 +33,7 @@
       xkb.layout = "us";
       xkb.variant = "";
     };
+
+    services.autorandr.enable = true;
   };
 }
