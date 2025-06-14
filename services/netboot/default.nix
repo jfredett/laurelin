@@ -72,7 +72,7 @@
 
           kernel_params_path = File.join(pxe_path, "kernel-params")
           extra_cmdline = if File.exist?(kernel_params_path)
-            File.read(kernel_params_path).chomp
+            File.read(kernel_params_path).hp
           else
             ""
           end
@@ -82,7 +82,7 @@
 
           response = {
             "kernel": "file://#{pxe_path}/bzImage",
-            "initrd": ["file://#{pxe_path}/initrd"],
+            "initrd": ["file://#{pxe_path}/initrd.zst"],
             "cmdline": cmdline,
             "message": "Booting #{mac} on #{pxe_path}"
           }.to_json

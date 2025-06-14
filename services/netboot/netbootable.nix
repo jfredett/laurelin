@@ -29,7 +29,7 @@
     (modulesPath + "/profiles/base.nix")
   ];
 
-  config = let 
+  config = let
     hostName = config.networking.hostName;
     hostkeys = narya.infra.host-keys;
     hostkey = hostkeys.${hostName} or hostkeys.generic;
@@ -43,6 +43,8 @@
         HostKey /etc/ssh/hostkey
       '';
     };
+
+      netboot.squashfsCompression = "zstd -Xcompression-level 7";
 
     environment.etc = {
       "ssh/hostkey" = {
@@ -62,20 +64,20 @@
           netbootRamdisk
           kernel
           (pkgs.runCommand "build-artifacts" { } ''
-          echo "Copying Netboot Artifacts to $out"
-          mkdir -p $out
+            echo "Copying Netboot Artifacts to $out"
+            mkdir -p $out
 
-          echo "Copying kernel params from ${config.system.build.toplevel}/kernel-params -> $out/kernel-params"
-          ln -s "${config.system.build.toplevel}/kernel-params" $out/kernel-params
+            echo "Copying kernel params from ${config.system.build.toplevel}/kernel-params -> $out/kernel-params"
+            ln -s "${config.system.build.toplevel}/kernel-params" $out/kernel-params
 
-          echo "Copying init from ${config.system.build.toplevel}/init -> $out/init"
-          ln -s "${config.system.build.toplevel}/init" $out/init
+            echo "Copying init from ${config.system.build.toplevel}/init -> $out/init"
+            ln -s "${config.system.build.toplevel}/init" $out/init
 
-          echo "Copying ${build.netbootRamdisk}/initrd -> $out/initrd"
-          ln -s ${build.netbootRamdisk}/initrd          $out/initrd
+            echo "Copying ${build.netbootRamdisk}/initrd -> $out/initrd"
+            ln -s "${build.netbootRamdisk}/initrd" $out/initrd
 
-          echo "Writing 'init-command: ${build.toplevel}' to $out/init-command"
-          echo "${build.toplevel}" > $out/init-command
+            echo "Writing 'init-command: ${build.toplevel}' to $out/init-command"
+            echo "${build.toplevel}" > $out/init-command
           '')
         ];
         preferLocalBuild = true;
