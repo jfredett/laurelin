@@ -6,6 +6,10 @@
     ./grocy.nix
     ./jellyfin.nix
     ./registry.nix
+    ./foundry.nix
+    ./affine.nix
+    ./redis.nix
+    ./postgres.nix
   ];
 
   options.laurelin.services.docker = {
