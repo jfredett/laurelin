@@ -15,7 +15,7 @@
       name = "conf.yml";
       text = cfg.dashy.conf;
     };
-  in mkIf cfg.jellyfin.enable {
+  in mkIf cfg.dashy.enable {
     laurelin.services = {
       reverse-proxy = {
         domain = "emerald.city";
