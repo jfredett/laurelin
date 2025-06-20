@@ -1,22 +1,11 @@
 { config, lib, pkgs, ... }: with lib; {
   options.laurelin.services.docker.outline = {
     enable = mkEnableOption "Enable outline";
-    uploadLocation = mkOption {
+    dataLocation = mkOption {
       type = types.str;
       description = ''
-        Where to store uploaded files
+        Where to store  files
       '';
-    };
-    confRoot = mkOption {
-      type = types.str;
-      description = ''
-        Where the configuration is stored
-      '';
-    };
-
-    dbPass = mkOption {
-      type = types.str;
-      description = "password for the DB";
     };
   };
 
@@ -37,13 +26,13 @@
     };
 
     systemd.tmpfiles.rules = [
-      "d ${cfg.host.dataLocation} 0755 root users -"
+      "d ${cfg.outline.dataLocation} 0755 root users -"
     ];
 
     virtualisation.oci-containers.containers = {
       outline = {
         image = "outlinewiki/outline:latest";
-        ports = [ "10000:3010" ];
+        ports = [ "10000:3000" ];
           #restart = "unless-stopped";
         volumes = [
             "${cfg.outline.dataLocation}:/var/lib/outline/storage"
