@@ -28,6 +28,7 @@
         ports = [ "5432:5432" ];
           #        restart = "always";
         volumes = [
+            "${cfg.postgres.confRoot}/data:/var/lib/postgresql/data"
         ];
         environmentFiles = [
             "${cfg.postgres.confRoot}/.env"
