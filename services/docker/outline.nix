@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: with lib; {
-  options.laurelin.services.docker.affine = {
-    enable = mkEnableOption "Enable affine";
+  options.laurelin.services.docker.outline = {
+    enable = mkEnableOption "Enable outline";
     uploadLocation = mkOption {
       type = types.str;
       description = ''
@@ -22,12 +22,12 @@
 
   config = let
     cfg = config.laurelin.services.docker;
-  in mkIf cfg.affine.enable {
+  in mkIf cfg.outline.enable {
     laurelin.services = {
       reverse-proxy = {
         domain = "emerald.city";
         services = {
-          affine = { port = 10000; };
+          outline = { port = 10000; };
         };
       };
       docker = {
@@ -36,17 +36,20 @@
       };
     };
 
+    systemd.tmpfiles.rules = [
+      "d ${cfg.host.dataLocation} 0755 root users -"
+    ];
+
     virtualisation.oci-containers.containers = {
-      affine = {
-        image = "ghcr.io/toeverything/affine-graphql:stable";
+      outline = {
+        image = "outlinewiki/outline:latest";
         ports = [ "10000:3010" ];
           #restart = "unless-stopped";
         volumes = [
-            "${cfg.affine.uploadLocation}:/root/.affine/storage"
-            "${cfg.affine.confRoot}:/root/.affine/config"
+            "${cfg.outline.dataLocation}:/var/lib/outline/storage"
         ];
         environmentFiles = [
-            "${cfg.affine.confRoot}/.env"
+            "${cfg.outline.dataLocation}/env"
         ];
       };
     };

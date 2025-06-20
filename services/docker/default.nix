@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }: with lib; {
   imports = [
     ./5etools.nix
-    ./affine.nix
     ./client.nix
     ./dashy.nix
     ./foundry.nix
