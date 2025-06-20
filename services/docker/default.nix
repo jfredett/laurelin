@@ -1,15 +1,17 @@
 { config, lib, pkgs, ... }: with lib; {
   imports = [
+    ./5etools.nix
+    ./affine.nix
     ./client.nix
     ./dashy.nix
+    ./foundry.nix
     ./gluetun.nix
     ./grocy.nix
     ./jellyfin.nix
-    ./registry.nix
-    ./foundry.nix
-    ./affine.nix
-    ./redis.nix
+    ./outline.nix
     ./postgres.nix
+    ./redis.nix
+    ./registry.nix
   ];
 
   options.laurelin.services.docker = {
