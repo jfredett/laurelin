@@ -28,7 +28,7 @@
     virtualisation.oci-containers.containers = {
       dashy = {
         image = "lissy93/dashy";
-        ports = [ "8001:8080" ];
+        ports = [ "8081:8080" ];
         volumes = [
           "${dashyCfg}:/app/user-data/conf.yml:ro"
         ];
