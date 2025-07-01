@@ -5,6 +5,7 @@
     ./dashy.nix
     ./foundry.nix
     ./gluetun.nix
+    ./grist.nix
     ./grocy.nix
     ./jellyfin.nix
     ./outline.nix
