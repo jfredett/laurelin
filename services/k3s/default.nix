@@ -31,9 +31,9 @@
     services.k3s.role = "server";
     services.k3s.configPath = narya.infra.k3s.config;
 
-    #services.k3s.extraFlags = toString [
-    #  # "--debug" # Optionally add additional args to k3s
-    #];
+    services.k3s.extraFlags = toString [
+      "--debug" # Optionally add additional args to k3s
+    ];
 
     environment.etc."rancher/k3s/registries.yaml".text = /* yaml */ ''
       mirrors:

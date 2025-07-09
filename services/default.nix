@@ -4,6 +4,7 @@
     ./dns
     ./docker
     ./grafana
+    ./k3s
     ./netboot
     ./network-storage
     ./prometheus
