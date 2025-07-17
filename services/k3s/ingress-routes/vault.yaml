@@ -1,0 +1,15 @@
+---
+kind: IngressRoute
+apiVersion: traefik.io/v1alpha1
+metadata:
+  name: vault-ui
+  namespace: kube-infra
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`vault.emerald.city`)
+      services:
+        - name: vault-ui
+          port: 8200

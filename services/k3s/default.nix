@@ -55,6 +55,16 @@
             "--debug" # Optionally add additional args to k3s
           ];
 
+          manifests = let
+            # FIXME: This currently hardcodes emerald.city as the domain. Prefer to have it be generic
+            vault-ingress-route = ./ingress-routes/vault.yaml;
+          in {
+            vault-ingress-route = mkIf cfg.vault-operator.enable {
+              enable = true;
+              source = vault-ingress-route;
+            };
+          };
+
           autoDeployCharts = let
               cert_manager_repo = "https://charts.jetstack.io";
               vault_operator_package = "https://github.com/hashicorp/vault-secrets-operator/archive/refs/tags/v0.10.0.tar.gz";
@@ -72,6 +82,19 @@
                 };
                 createNamespace = true;
                 targetNamespace = "kube-infra";
+                values = {
+                  ui = {
+                    enabled = true;
+                  };
+                  csi = {
+                    enabled = true;
+                  };
+                  ha = {
+                    enabled = true;
+                    replicas = 5;
+                  };
+
+                };
               };
 
               nfs-storage = mkIf cfg.nfs.enable {
